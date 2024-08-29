@@ -1,0 +1,31 @@
+{
+	"id": "ihse-kvm-tec",
+	"name": "ihse-kvm-tec",
+	"shortname": "ihse-kvm-tec",
+	"description": "ihse-kvm-tec",
+	"version": "1.0.0",
+	"license": "MIT",
+	"repository": "git+https://github.com/movin-xs/companion-module-ihse-kvm-tec.git",
+	"bugs": "https://github.com/movin-xs/companion-module-ihse-kvm-tec/issues",
+	"maintainers": [
+		{
+			"name": "Harald Winkelmann",
+			"email": "harald.winkelmann@ihse.de"
+		}
+	],
+	"legacyIds": [],
+	"runtime": {
+		"type": "node18",
+		"api": "nodejs-ipc",
+		"apiVersion": "0.0.0",
+		"entrypoint": "../index.js"
+	},
+	"manufacturer": "IHSE",
+	"products": [
+		"Switching Manager API"
+	],
+	"keywords": [
+        "kvm-tec",
+        "Switching Manager API"
+	]
+}
