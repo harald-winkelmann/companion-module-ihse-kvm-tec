@@ -69,8 +69,8 @@ class SwitchingManager extends InstanceBase {
 				if(InstanceStatus.Ok) {
 					options.headers['Authorization'] = 'Bearer ' + this.config.bearer
 					await this.sendCommand(url, options, false)
+				}
 			}
-		}
 			else {
 				this.log('error', `HTTP POST Request failed (${e.message})`)
 				this.updateStatus(InstanceStatus.UnknownError, e.response.statusCode)
