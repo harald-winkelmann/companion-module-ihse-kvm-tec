@@ -3,8 +3,8 @@ import { configFields } from './src/config.js'
 import { upgradeScripts } from './src/upgrade.js'
 import { FIELDS } from './src/fields.js'
 import { initActions } from './src/actions.js'
-import got from 'got'
 
+import got from 'got'
 import JimpRaw from 'jimp'
 
 // Webpack makes a mess..
@@ -57,29 +57,33 @@ class SwitchingManager extends InstanceBase {
 			this.updateStatus(InstanceStatus.Ok)
 		} catch (e) {
 			//this.log('error', `HTTP POST Exception ` + JSON.stringify(e))
-			//this.log('error', `HTTP POST Message ` + JSON.stringify(e.message))
-			//this.log('error', `HTTP POST response ` + e.response.statusCode)
-			if(e.response.statusCode == 401 && reAuthenticate) {
-				this.log('warn', `HTTP POST Request failed (${e.message})`)
-				this.log('warn', `Try to get new authentication token`)
-				// Generate new authentication token.
-				await this.authenticate()
+			if(e.response) {
+				if(e.response.statusCode == 401 && reAuthenticate) {
+					this.log('warn', `HTTP POST Request failed (${e.message})`)
+					this.log('warn', `Try to get new authentication token`)
+					// Generate new authentication token.
+					await this.authenticate()
 
-				// Use new authentication token.
-				if(InstanceStatus.Ok) {
-					options.headers['Authorization'] = 'Bearer ' + this.config.bearer
-					await this.sendCommand(url, options, false)
+					// Use new authentication token.
+					if(InstanceStatus.Ok) {
+						options.headers['Authorization'] = 'Bearer ' + this.config.bearer
+						await this.sendCommand(url, options, false)
+					}
+				}
+				else {
+					this.log('error', `HTTP POST Request failed (${e.message})`)
+					this.updateStatus(InstanceStatus.UnknownError, e.response.statusCode)
 				}
 			}
 			else {
-				this.log('error', `HTTP POST Request failed (${e.message})`)
-				this.updateStatus(InstanceStatus.UnknownError, e.response.statusCode)
+				this.log('error', `HTTP POST Message ` + JSON.stringify(e.message))
+				this.updateStatus(InstanceStatus.UnknownError, JSON.stringify(e.message))
 			}
 		}
 	}
 
 	/**
-	 * Send authentication request to switing manager.
+	 * Send authentication request to switching manager.
 	 * Save response bearer token in config.
 	 */
 	async authenticate(){

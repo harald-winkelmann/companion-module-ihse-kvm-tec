@@ -1,3 +1,26 @@
+const protocol = "\
+(https?:\/\/)?\
+"
+
+const port = "\
+(:\\d+)?\
+"
+
+const urlRegex = "\
+([a-zA-Z0-9-])+\
+(\\.[a-zA-Z]{2,})*\
+"
+
+const ipv4Regex = "\
+(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\
+\\.\
+(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\
+\\.\
+(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\
+\\.\
+(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\
+"
+
 export const configFields = [
 	{
 		type: 'static-text',
@@ -5,7 +28,7 @@ export const configFields = [
 		width: 12,
 		label: 'Information "Base URL"',
 		value:
-			'Use the "Base URL" field of your Switching Manager instance: e.g. "http://server.url:5000".',
+			'Use the "Base URL" field of your Switching Manager instance: e.g. "http://server.url:5000".'
 	},
 	{
 		type: 'textinput',
@@ -13,7 +36,8 @@ export const configFields = [
 		label: 'Base URL',
 		width: 12,
 		default: '',
-		required: true
+		required: true,
+		regex: "/^" + protocol + "(" + urlRegex + "|" + ipv4Regex + ")" + port + "$/"
 	},
 
 

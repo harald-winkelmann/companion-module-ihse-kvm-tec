@@ -47,14 +47,14 @@ export const initActions = function (that) {
 				type: 'textinput',
 				label: 'CON',
 				id: 'con',
-				default: '221311601092',
+				default: '',
 				tooltip: 'Enter Extender ID',
 				regex: Regex.NUMBER
 			},{
 				type: 'textinput',
 				label: 'CPU',
 				id: 'cpu',
-				default: '230211401066',
+				default: '',
 				tooltip: 'Enter Extender ID',
 				regex: Regex.NUMBER
 			},{
@@ -79,7 +79,7 @@ export const initActions = function (that) {
 				type: 'textinput',
 				label: 'CON',
 				id: 'con',
-				default: '221311601092',
+				default: '',
 				tooltip: 'Enter Extender ID',
 				regex: Regex.NUMBER
 			}],
